@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/firebase_options.dart';
 import 'package:instagram/providers/user_provider.dart';
 import 'package:instagram/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,20 +14,9 @@ import 'package:provider_base_tools/provider_base_tools.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
-      apiKey: "AIzaSyCXxAV03oqvzdLh05yiJWT5AznquEja_TQ",
-      appId: "1:857947979264:web:19c3cc274be2627a10e2e5",
-      messagingSenderId: "857947979264",
-      projectId: "insta-clone0",
-      storageBucket: "insta-clone0.appspot.com",
-    ));
-  } else {
-    await Firebase.initializeApp(
-        // options: DefaultFire
-        );
-  }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

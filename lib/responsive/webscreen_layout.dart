@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/utils/colors.dart';
 import 'package:instagram/variables/global_variables.dart';
 import 'package:instagram/widgets/side_navbar.dart';
 
@@ -12,29 +11,6 @@ class WebScreenLayout extends StatefulWidget {
 
 class _WebScreenLayoutState extends State<WebScreenLayout> {
   int _page = 0;
-  late PageController pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
-  }
-
-  void navigationTapped(int page) {
-    pageController.jumpToPage(page);
-  }
-
-  void onPageChanged(int page) {
-    setState(() {
-      _page = page;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +23,7 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                 const VerticalDivider(),
                 Expanded(
                   flex: 7,
-                  child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: pageController,
-                    onPageChanged: onPageChanged,
-                    children: homeScreenItems,
-                  ),
+                  child: homeScreenItems[_page],
                 ),
                 const VerticalDivider(),
                 Container(
@@ -61,54 +32,54 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                         : null),
               ],
             )
-          : PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
-              onPageChanged: onPageChanged,
-              children: homeScreenItems,
-            ),
+          : homeScreenItems[_page],
       bottomNavigationBar: width > webScreenSize
           ? null
           : BottomNavigationBar(
-              items: [
+              currentIndex: _page,
+              type: BottomNavigationBarType.fixed,
+              onTap: (value) {
+                setState(() {
+                  _page = value;
+                });
+              },
+              items: const [
                 BottomNavigationBarItem(
+                  activeIcon: Icon(Icons.home),
                   icon: Icon(
-                    Icons.home,
-                    color: _page == 0 ? blackColour : greyColor,
+                    Icons.home_outlined,
                   ),
-                  // backgroundColor: mobileBackgroundColor,
-                  label: "",
+                  label: "home",
                 ),
                 BottomNavigationBarItem(
+                  activeIcon: Icon(Icons.search),
                   icon: Icon(
-                    Icons.search,
-                    color: _page == 1 ? blackColour : greyColor,
+                    Icons.search_rounded,
                   ),
-                  label: "",
+                  label: "search",
                 ),
                 BottomNavigationBarItem(
+                  activeIcon: Icon(Icons.add),
                   icon: Icon(
                     Icons.add_circle_outline,
-                    color: _page == 2 ? blackColour : greyColor,
                   ),
-                  label: "",
+                  label: "create",
                 ),
                 BottomNavigationBarItem(
+                  activeIcon: Icon(Icons.favorite),
                   icon: Icon(
-                    Icons.favorite,
-                    color: _page == 3 ? blackColour : greyColor,
+                    Icons.favorite_outline,
                   ),
-                  label: "",
+                  label: "chat",
                 ),
                 BottomNavigationBarItem(
+                  activeIcon: Icon(Icons.person),
                   icon: Icon(
-                    Icons.person,
-                    color: _page == 4 ? blackColour : greyColor,
+                    Icons.person_outline,
                   ),
-                  label: "",
+                  label: "profile",
                 ),
               ],
-              onTap: navigationTapped,
             ),
     );
   }

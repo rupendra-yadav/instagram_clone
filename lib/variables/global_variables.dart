@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/screens/addpost.dart';
 import 'package:instagram/screens/feedScreen.dart';
+import 'package:instagram/screens/messages.dart';
 import 'package:instagram/screens/search_tab.dart';
 import 'package:instagram/screens/user_profile.dart';
 
@@ -11,7 +12,7 @@ List<Widget> homeScreenItems = [
   const FeedScreen(),
   const SearchTab(),
   const AddPostScreen(),
-  const Text("notify"),
+  const Messages(),
   UserProfile(
     uid: FirebaseAuth.instance.currentUser!.uid,
   ),

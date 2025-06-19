@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:instagram/screens/addpost.dart';
-// import 'package:instagram/screens/messages.dart';
-// import 'package:instagram/screens/search_tab.dart';
-// import 'package:instagram/screens/user_profile.dart';
-import 'package:instagram/utils/colors.dart';
 import 'package:instagram/variables/global_variables.dart';
 
 class MobileScreenLayout extends StatefulWidget {
@@ -16,23 +10,6 @@ class MobileScreenLayout extends StatefulWidget {
 
 class _MobileScreenState extends State<MobileScreenLayout> {
   int _page = 0;
-  late PageController pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
-  }
-
-  void navigationTapped(int page) {
-    pageController.jumpToPage(page);
-  }
 
   void onPageChanged(int page) {
     setState(() {
@@ -43,51 +20,52 @@ class _MobileScreenState extends State<MobileScreenLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        children: homeScreenItems,
-      ),
+      body: homeScreenItems[_page],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        currentIndex: _page,
+        type: BottomNavigationBarType.fixed,
+        onTap: (value) {
+          setState(() {
+            _page = value;
+          });
+        },
+        items: const [
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.home),
             icon: Icon(
-              Icons.home,
-              color: _page == 0 ? primaryColor : secondaryColor,
+              Icons.home_outlined,
             ),
-            label: "",
+            label: "home",
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.search),
             icon: Icon(
-              Icons.search,
-              color: _page == 1 ? primaryColor : secondaryColor,
+              Icons.search_rounded,
             ),
-            label: "",
+            label: "search",
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.add),
             icon: Icon(
               Icons.add_circle_outline,
-              color: _page == 2 ? primaryColor : secondaryColor,
             ),
-            label: "",
+            label: "create",
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.favorite),
             icon: Icon(
-              Icons.favorite,
-              color: _page == 3 ? primaryColor : secondaryColor,
+              Icons.favorite_outline,
             ),
-            label: "",
+            label: "chat",
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.person),
             icon: Icon(
-              Icons.person,
-              color: _page == 4 ? primaryColor : secondaryColor,
+              Icons.person_outline,
             ),
-            label: "",
+            label: "profile",
           ),
         ],
-        onTap: navigationTapped,
       ),
     );
   }

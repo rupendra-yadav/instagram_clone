@@ -45,56 +45,58 @@ class _MessagesState extends State<Messages> {
               ))
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextFieldInputs(
-                hintText: 'Search',
-                textEditingController: _searchController,
-                textInputKeyBoardType: TextInputType.emailAddress),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  StatusIndicator(),
-                  StatusIndicator(),
-                  StatusIndicator(),
-                  StatusIndicator(),
-                  StatusIndicator(),
-                ],
-              ),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Messages",
-                  style: TextStyle(fontSize: 18),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextFieldInputs(
+                  hintText: 'Search',
+                  textEditingController: _searchController,
+                  textInputKeyBoardType: TextInputType.emailAddress),
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    StatusIndicator(),
+                    StatusIndicator(),
+                    StatusIndicator(),
+                    StatusIndicator(),
+                    StatusIndicator(),
+                  ],
                 ),
-                GestureDetector(
-                  child: Text(
-                    "Requests",
-                    style: TextStyle(color: Colors.blueAccent, fontSize: 18),
-                  ),
-                )
-              ],
-            ),
-            //CHATS SECTION
-            const SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Chats(),
-                  Chats(),
-                  Chats(),
-                  Chats(),
+                  Text(
+                    "Messages",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  GestureDetector(
+                    child: Text(
+                      "Requests",
+                      style: TextStyle(color: Colors.blueAccent, fontSize: 18),
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
+              //CHATS SECTION
+              const SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    Chats(),
+                    Chats(),
+                    Chats(),
+                    Chats(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
